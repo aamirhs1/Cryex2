@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -27,4 +27,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function UserAccounts()
+    {
+        return $this->belongsToMany( 'App\Models\Asset', 'user_accounts', 'user_id', 'asset_id' )
+        ->withPivot('address','available_balance','on_orders','on_hold')       
+        ->withTimestamps();
+    }
 }

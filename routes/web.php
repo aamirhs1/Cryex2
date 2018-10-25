@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/account', 'HomeController@account')->name('account');
+
+Route::get('/market', 'HomeController@market')->name('market');
+
+Route::post('createorder', 'HomeController@SellOrder')->name('createorder');
