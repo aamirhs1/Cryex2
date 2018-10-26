@@ -15,9 +15,9 @@ class CreateOrderTransactionsTable extends Migration
     {
         Schema::create('order_transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('sellorder_units');
-            $table->decimal('buyorder_units');
-            $table->decimal('price_per_unit');
+            $table->decimal('sellorder_units',16,8);
+            $table->decimal('buyorder_units',16,8);
+            $table->decimal('price_per_unit',16,8);
             $table->integer('buyorder_id')->unsigned()->nullable();
             $table->integer('sellorder_id')->unsigned()->nullable();
             $table->timestamps();

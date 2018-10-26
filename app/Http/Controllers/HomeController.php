@@ -7,7 +7,9 @@ use App\Models\AssetPair;
 use App\Models\Order;
 use App\Models\Asset;
 use App\Models\OrderTransaction;
+use App\Models\CommissionTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -40,14 +42,18 @@ class HomeController extends Controller
         return view('UserDashboard.accounts',compact('wallets'));
     }
 
-    public function market()
+    public function market($pairid = 1)
     {
-         $pair = AssetPair::findorfail(1);
-         //$user = User::with('UserAccounts')->find(auth()->user()->id);
-         //$wallets = $user->UserAccounts;
-         //dd($user->UserAccounts);
+        $pair = AssetPair::findorfail(1);
+         
+        $pairs = DB::table('asset_pairs as e')
+            ->join('assets as parent', 'e.parent_id', '=', 'parent.id')
+            ->join('assets as child', 'e.child_id', '=', 'child.id')
+            ->select('e.id as pair_id', 'parent.name as parent_name', 'parent.symbol as parent_symbol', 'child.name as child_name', 'child.symbol as child_symbol')
+            ->get();
+        dd($pairs);
 
-        return view('Exchange.market',compact('wallets','pair'));
+        return view('trade',compact('pairs','pair'));
     }
 
 
@@ -65,6 +71,7 @@ class HomeController extends Controller
         $BaseCurrency = Asset::findorfail($pair->parent_id);
         $PairCurrency = Asset::findorfail($pair->child_id);
 
+       
         $order = new Order;
         $order->type = $request->type;;
         $order->child_units = $request->units;
@@ -75,9 +82,19 @@ class HomeController extends Controller
         $order->status = "New";
 
         $order->AssetPair()->associate($pair);
-        $order->User()->associate($user);       
+        $order->User()->associate($user);
+         if(($order->units >= $userchild->available_balance && $order->type = "SellOrder" )|| (($order->base_units + ($order->base_units * 0.00075) >= $userparent->available_balance || $order->base_units > 0)))
+        {       
 
         $order->save();
+
+        }
+        else
+        {
+            return back();
+        }
+
+       
         //Order - User Account Update
         if($order->type == "SellOrder")
         {
@@ -114,7 +131,8 @@ class HomeController extends Controller
                     $matchuserchild = $matchuser->UserAccounts()->where('asset_id', '=' , $pair->child_id)->first();
 
 
-                    $order->remaining >= $match->remaining ? $order->remaining - $match->remaining : $match->remaining - $order->remaining;
+                    $order_remaining = $order->remaining >= $match->remaining ? $order->remaining - $match->remaining : 0;
+                    $match_remaining = $match->remaining >= $order->remaining ? $match->remaining - $order->remaining : 0;
                     $trx = new OrderTransaction;
                     $trx->price_per_unit = $order->child_price_per_unit;
                     if($order->type == "SellOrder")
@@ -129,16 +147,24 @@ class HomeController extends Controller
                         $trx->buyorder_id = $order->id; 
                     }
                     
-                    if($order->remaining != 0.00)
+                    if($order_remaining > 0)
                     {
                         $order->status = "Partial";
                         $match->status = "Completed";
                         $trx->sellorder_units = $match->remaining;
                         $trx->buyorder_units = $match->remaining * $match->child_price_per_unit;
+                        $order->remaining = $order_remaining;
+                        $match->remaining = $match_remaining;
                         $order->save();
                         $match->save();
                         $trx->save();
                         $commission = $trx->buyorder_units * 0.00075;
+                        $comtrx = new CommissionTransaction;
+                        $comtrx->buyer_fee = $commission;
+                        $comtrx->seller_fee = $commission;
+                        $comtrx->order_transaction_id = $trx->id;
+                        $comtrx->asset_id = $BaseCurrency->id;
+                        $comtrx->save();
                         if($order->type == "SellOrder")
                         {
                         //Order User Account
@@ -196,13 +222,23 @@ class HomeController extends Controller
                     }
                     else
                     {
-                        $order->status = "Completed";
-                        $match->status = $match->remaining > 0.00 ? "Partial" : "Completed";     
+                        $order->status = "Completed";                           
                         $trx->sellorder_units = $order->remaining;
                         $trx->buyorder_units = $order->remaining * $order->child_price_per_unit;
+                        $order->remaining = $order_remaining;
+                        $match->remaining = $match_remaining;
+                        $commission = $trx->buyorder_units * 0.00075;
+                        $match->status = $match->remaining > 0 ? "Partial" : "Completed";  
                         $order->save();
                         $match->save();
                         $trx->save();
+                        $commission = $trx->buyorder_units * 0.00075;                        
+                        $comtrx = new CommissionTransaction;
+                        $comtrx->buyer_fee = $commission;
+                        $comtrx->seller_fee = $commission;
+                        $comtrx->order_transaction_id = $trx->id;
+                        $comtrx->asset_id = $BaseCurrency->id;
+                        $comtrx->save();
                         if($order->type == "SellOrder")
                         {
                         //Order User Account
@@ -264,6 +300,6 @@ class HomeController extends Controller
 
        
 
-
+      return back();
     }
 }

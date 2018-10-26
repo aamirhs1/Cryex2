@@ -153,12 +153,14 @@
       </div>
       <div class="modal-body">
         <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#home">BTC</a></li>
+          <li class="active"><a data-toggle="tab" href="#btc">BTC</a></li>
+          <li class="active"><a data-toggle="tab" href="#ltc">LTC</a></li>
+          <li class="active"><a data-toggle="tab" href="#eth">ETH</a></li>
+          <li class="active"><a data-toggle="tab" href="#usdt">USDT</a></li>
         </ul>
 
         <div class="tab-content">
-          <div id="home" class="tab-pane fade in active">
-            <h5>BTC</h5>
+          <div id="btc" class="tab-pane fade in active">
             <table class="table table-striped table-hover table-condensed">
                <thead>
                   <tr>
@@ -166,19 +168,19 @@
                         Symbol
                      </th>
                      <th>
-                        Price
-                     </th>
-                     <th>
                         Name
                      </th>
                   </tr>
                </thead>
                <tbody>
-                  <tr>
-                     <td class="number cursor-pointer">LTC</td>
-                     <td class="number cursor-pointer">0.0159</td>
-                     <td class="number cursor-pointer">LITECOIN</td>
-                  </tr>
+                @foreach ($pairs as $ps)
+                    @if ($ps->parent_symbol=="BTC")
+                        <tr>
+                         <td class="number cursor-pointer"><a href='' >{{$ps->child_symbol}}</td>
+                         <td class="number cursor-pointer">{{$ps->child_name}}</td>
+                        </tr>
+                    @endif
+                @endforeach
                </tbody>
             </table>
           </div>

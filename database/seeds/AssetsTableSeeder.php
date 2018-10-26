@@ -37,14 +37,14 @@ class AssetsTableSeeder extends Seeder
         ]);
 
         DB::table('assets')->insert([
-            'name' => 'Nano',
-            'symbol' => 'NANO',
+            'name' => 'TRON',
+            'symbol' => 'TRX',
             'minAllowed' => 0.0005,
         ]);
 
         DB::table('assets')->insert([
-            'name' => 'Horizen',
-            'symbol' => 'ZEN',
+            'name' => 'WaltonChain',
+            'symbol' => 'WTC',
             'minAllowed' => 0.0005,
         ]);
 
@@ -55,14 +55,14 @@ class AssetsTableSeeder extends Seeder
         ]);
 
         DB::table('assets')->insert([
-            'name' => 'EOS',
-            'symbol' => 'EOS',
+            'name' => 'IOTA',
+            'symbol' => 'IOTA',
             'minAllowed' => 0.0005,
         ]);
 
         DB::table('assets')->insert([
-            'name' => 'TRON',
-            'symbol' => 'TRX',
+            'name' => 'NANO',
+            'symbol' => 'NANO',
             'minAllowed' => 0.0005,
         ]);
 
@@ -74,7 +74,7 @@ class AssetsTableSeeder extends Seeder
 
         DB::table('assets')->insert([
             'name' => 'VeChain',
-            'symbol' => 'VET',
+            'symbol' => 'VEN',
             'minAllowed' => 0.0005,
         ]);
     }
