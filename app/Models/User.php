@@ -35,4 +35,9 @@ class User extends Authenticatable
         ->withPivot('address','available_balance','on_orders','on_hold')       
         ->withTimestamps();
     }
+
+    public function Orders()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
 }

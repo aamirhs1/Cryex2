@@ -22,7 +22,13 @@
     <!-- /jumbo-core stylesheet -->
 
     <!-- Color-Theme stylesheet -->
-    <link id="override-css-id" href="{{URL::asset('main/css/theme-dark-indigo.css')}}" rel="stylesheet">
+<link id="override-css-id" href="{{URL::asset('main/css/theme-dark-indigo.css')}}" rel="stylesheet">
+<link id="override-css-id" href="{{URL::asset('exchange/css/bootstrap.css')}}" rel="stylesheet">
+<link id="override-css-id" href="{{URL::asset('exchange/css/app.css')}}" rel="stylesheet">
+<link id="override-css-id" href="{{URL::asset('exchange/plugins/fontawesome/css/font-awesome.css')}}" rel="stylesheet">
+<link id="override-css-id" href="{{URL::asset('main/css/theme-dark-indigo.css')}}" rel="stylesheet">
+<link id="override-css-id" href="{{URL::asset('main/css/theme-dark-indigo.css')}}" rel="stylesheet">
+<link id="override-css-id" href="{{URL::asset('main/css/theme-dark-indigo.css')}}" rel="stylesheet">
     <!-- Color-Theme stylesheet -->
 
 @endsection
@@ -66,19 +72,55 @@
 
 
 
-<script src="{{URL::asset('main/plugins/chosen/chosen.jquery.js')}}"></script>
-<script src="{{URL::asset('main/plugins/velocity/velocity.js')}}"></script>
-<script src="{{URL::asset('main/plugins/velocity/velocity.ui.js')}}"></script>
-<script src="{{URL::asset('main/plugins/slider/js/bootstrap-slider.js')}}"></script>
-<script src="{{URL::asset('main/plugins/filestyle/bootstrap-filestyle.js')}}"></script>
-<script src="{{URL::asset('main/plugins/animo/animo.js')}}"></script>
-<script src="{{URL::asset('main/plugins/sparklines/jquery.sparkline.js')}}"></script>
-<script src="{{URL::asset('main/plugins/slimscroll/jquery.slimscroll.js')}}"></script>
-<script src="{{URL::asset('main/plugins/datatable/media/js/jquery.dataTables.js')}}"></script>
-<script src="{{URL::asset('main/plugins/datatable/extensions/datatable-bootstrap/js/dataTables.bootstrap.js')}}"></script>
-<script src="{{URL::asset('main/plugins/datatable/extensions/ColVis/js/dataTables.colVis.js')}}"></script>
-<script src="{{URL::asset('main/tradify/highcharts.js')}}"></script>
-<script src="{{URL::asset('main/tradify/exporting.js')}}"></script>
-<script src="{{URL::asset('main/js/tradify.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/chosen/chosen.jquery.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/velocity/velocity.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/velocity/velocity.ui.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/slider/js/bootstrap-slider.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/filestyle/bootstrap-filestyle.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/animo/animo.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/sparklines/jquery.sparkline.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/slimscroll/jquery.slimscroll.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/datatable/media/js/jquery.dataTables.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/datatable/extensions/datatable-bootstrap/js/dataTables.bootstrap.js')}}"></script>
+<script src="{{URL::asset('exchange/plugins/datatable/extensions/ColVis/js/dataTables.colVis.js')}}"></script>
+<script src="{{URL::asset('exchange/tradify/highcharts.js')}}"></script>
+<script src="{{URL::asset('exchange/tradify/exporting.js')}}"></script>
+<script src="{{URL::asset('exchange/js/tradify.js')}}"></script>
+<script type="text/javascript">
+  function calculateBuy()
+  {
+    var myBox1 = document.getElementById('buyunits').value;
+    var myBox2 = document.getElementById('buyprice').value;
+    var result = document.getElementById('buysum');
+    var bf = document.getElementById('buyfee');
+    var total = document.getElementById('buytotal');
+    var myResult = parseFloat(myBox1 * myBox2).toFixed(8);
+    var fee = parseFloat(myResult*0.00075).toFixed(8);
+    result.value = myResult;
+    bf.value = fee;
+    total.value = parseFloat(0 + (myResult*0.00075) + (myBox1 * myBox2)).toFixed(8);
+  }
+  function calculateSell()
+  {
+    var myBox1 = document.getElementById('sellunits').value;
+    var myBox2 = document.getElementById('sellprice').value;
+    var result = document.getElementById('sellsum');
+    var bf = document.getElementById('sellfee');
+    var total = document.getElementById('selltotal');
+    var myResult = parseFloat(myBox1 * myBox2).toFixed(8);
+    var fee = parseFloat(myBox1*0.00075).toFixed(8);
+    result.value = myResult;
+    bf.value = fee;
+    total.value = parseFloat(0 + (myBox1*0.00075) + (myBox1 * myBox2)).toFixed(8);
+  }
+  $(".limfield").keyup(function() {
+      var maxChars = 10;
+      if ($(this).val().length > maxChars) {
+          $(this).val($(this).val().substr(0, maxChars));
+      }
+  });
+</script>
 
 @endsection
+
+@yield('myscripts')

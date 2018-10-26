@@ -15,7 +15,7 @@
                         <div class="panel panel-default">
                             <div class="panel-collapse">
                                 <div class="panel-body">
-                                    <h4>BTC/LTC</h4>
+                                    <h4>{{$pair->pair}}</h4>
                                     <div id="candlestickChart" class="h-500">
                                     </div>
                                 </div>
@@ -36,6 +36,8 @@
                     </div>
                     <form method="POST" action="{{ route('createorder') }}">
                         @csrf
+                        <input type="hidden" value="{{$pair->id}}" name="pair">
+                        <input type="hidden" value="BuyOrder" name="type">                        
                         <div class="pannel panel-body">
                             <div class="row">
                                 <label class="col-sm-3 control-label m-t-9">Units</label>
@@ -89,6 +91,8 @@
                     </div>
                     <form method="POST" action="{{ route('createorder') }}">
                         @csrf
+                        <input type="hidden" value="{{$pair->id}}" name="pair">
+                        <input type="hidden" value="SellOrder" name="type">
                         <div class="pannel panel-body">
                             <div class="row">
                                 <label class="col-sm-3 control-label m-t-9">Units</label>
@@ -138,6 +142,55 @@
         
     </section>
 </section>
+<div id="selectCurrency" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Select Instruments</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#home">BTC</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="home" class="tab-pane fade in active">
+            <h5>BTC</h5>
+            <table class="table table-striped table-hover table-condensed">
+               <thead>
+                  <tr>
+                     <th>
+                        Symbol
+                     </th>
+                     <th>
+                        Price
+                     </th>
+                     <th>
+                        Name
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td class="number cursor-pointer">LTC</td>
+                     <td class="number cursor-pointer">0.0159</td>
+                     <td class="number cursor-pointer">LITECOIN</td>
+                  </tr>
+               </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 @endsection
 @section('myscripts')
 @endsection

@@ -21,10 +21,18 @@ class CreateOrdersTable extends Migration
             $table->decimal('remaining',16,8);
             $table->string('status');
             $table->string('type');
-            $table->integer('assetpair_id')->unsigned()->nullable();
+            $table->integer('asset_pair_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             
             $table->timestamps();
-            
+
+            $table->foreign('user_id')
+              ->references('id')->on('users')
+              ->onDelete('cascade');
+
+            $table->foreign('asset_pair_id')
+              ->references('id')->on('asset_pairs');
+       
         });
     }
 

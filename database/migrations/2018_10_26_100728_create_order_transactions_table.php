@@ -29,6 +29,7 @@ class CreateOrderTransactionsTable extends Migration
             $table->foreign('sellorder_id')
               ->references('id')->on('orders')
               ->onDelete('cascade');
+            
         });
     }
 

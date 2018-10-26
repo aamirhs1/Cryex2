@@ -23,4 +23,4 @@ Route::get('/account', 'HomeController@account')->name('account');
 
 Route::get('/market', 'HomeController@market')->name('market');
 
-Route::post('createorder', 'HomeController@SellOrder')->name('createorder');
+Route::post('createorder', 'HomeController@createorder')->name('createorder');
