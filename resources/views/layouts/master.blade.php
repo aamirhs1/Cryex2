@@ -108,10 +108,10 @@
     var bf = document.getElementById('sellfee');
     var total = document.getElementById('selltotal');
     var myResult = parseFloat(myBox1 * myBox2).toFixed(8);
-    var fee = parseFloat(myBox1*0.00075).toFixed(8);
+    var fee = parseFloat(myResult*0.00075).toFixed(8);
     result.value = myResult;
     bf.value = fee;
-    total.value = parseFloat(0 + (myBox1*0.00075) + (myBox1 * myBox2)).toFixed(8);
+    total.value = parseFloat(0 + (myBox1 * myBox2) - (myResult*0.00075) ).toFixed(8);
   }
   $(".limfield").keyup(function() {
       var maxChars = 10;

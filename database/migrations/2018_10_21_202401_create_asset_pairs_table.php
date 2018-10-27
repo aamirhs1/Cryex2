@@ -15,7 +15,7 @@ class CreateAssetPairsTable extends Migration
     {
         Schema::create('asset_pairs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('pair');
+            $table->string('pair')->default('pairname');
             $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('child_id')->unsigned()->nullable();
             $table->timestamps();

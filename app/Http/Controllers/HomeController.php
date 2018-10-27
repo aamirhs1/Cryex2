@@ -42,18 +42,28 @@ class HomeController extends Controller
         return view('UserDashboard.accounts',compact('wallets'));
     }
 
-    public function market($pairid = 1)
+    public function market($pair)
     {
-        $pair = AssetPair::findorfail(1);
+        $pair = AssetPair::findorfail($pair);
          
         $pairs = DB::table('asset_pairs as e')
             ->join('assets as parent', 'e.parent_id', '=', 'parent.id')
             ->join('assets as child', 'e.child_id', '=', 'child.id')
             ->select('e.id as pair_id', 'parent.name as parent_name', 'parent.symbol as parent_symbol', 'child.name as child_name', 'child.symbol as child_symbol')
             ->get();
-        dd($pairs);
 
-        return view('trade',compact('pairs','pair'));
+        $parent_symbol = DB::table('assets')
+            ->select('symbol as parent_symbol')
+            ->where('id', '=', $pair->parent_id)
+            ->get()->first()->parent_symbol;
+        $child_symbol = DB::table('assets')
+            ->select('symbol as child_symbol')
+            ->where('id', '=', $pair->child_id)
+            ->get()->first()->child_symbol;
+        //dd($child_symbol);
+        //dd($pairs);
+
+        return view('Exchange.market',compact('pairs','pair','parent_symbol', 'child_symbol'));
     }
 
 

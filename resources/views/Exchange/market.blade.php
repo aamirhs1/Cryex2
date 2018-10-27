@@ -15,7 +15,7 @@
                         <div class="panel panel-default">
                             <div class="panel-collapse">
                                 <div class="panel-body">
-                                    <h4>{{$pair->pair}}</h4>
+                                    <h4>{{$parent_symbol}}/{{$child_symbol}}</h4>
                                     <div id="candlestickChart" class="h-500">
                                     </div>
                                 </div>
@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Buy LTC
+                    <div class="panel-heading">Buy {{$child_symbol}}
                         <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
                                <em class="fa fa-minus"></em>
                                </a>
@@ -44,35 +44,35 @@
                                 <div class="input-group col-sm-5 m-b">
                                     <input type="text" placeholder="0.00000000" id="buyunits" oninput="calculateBuy()" class="form-control text-right limfield" name="units" required>
                                 </div>
-                                <label class="col-sm-2 control-label m-t-9">LTC</label>
+                                <label class="col-sm-2 control-label m-t-9">{{$child_symbol}}</label>
                             </div>
                             <div class="row">
                                 <label class="col-sm-3 control-label m-t-9">Bid Price</label>
                                 <div class="input-group col-sm-5 m-b">
-                                    <input type="text" class="form-control text-right limfield" id="buyprice" oninput="calculateBuy()" placeholder="BTC Per Unit" name="price_per_unit" required>
+                                    <input type="text" class="form-control text-right limfield" id="buyprice" oninput="calculateBuy()" placeholder="{{$parent_symbol}} Per Unit" name="price_per_unit" required>
                                 </div>
-                                <label class="col-sm-2 control-label m-t-9">BTC</label>
+                                <label class="col-sm-2 control-label m-t-9">{{$parent_symbol}}</label>
                             </div>
                             <div class="row">
                                 <label class="col-sm-3 control-label m-t-9">Sum</label>
                                 <div class="input-group col-sm-5 m-b">
                                     <input type="text" placeholder="0.00000000" id="buysum" class="form-control text-right" disabled>
                                 </div>
-                                <label class="col-sm-2 control-label m-t-9">BTC</label>
+                                <label class="col-sm-2 control-label m-t-9">{{$parent_symbol}}</label>
                             </div>
                             <div class="row">
                                 <label class="col-sm-3 control-label m-t-9">Fee</label>
                                 <div class="input-group col-sm-5 m-b">
                                     <input type="text" placeholder="0.00000000" id="buyfee" class="form-control text-right" disabled>
                                 </div>
-                                <label class="col-sm-2 control-label m-t-9">BTC</label>
+                                <label class="col-sm-2 control-label m-t-9">{{$parent_symbol}}</label>
                             </div>
                             <div class="row">
                                 <label class="col-sm-3 control-label m-t-9">Total</label>
                                 <div class="input-group col-sm-5 m-b">
                                     <input type="text" placeholder="0.00000000" id="buytotal" class="form-control text-right" disabled>
                                 </div>
-                                <label class="col-sm-2 control-label m-t-9">BTC</label>
+                                <label class="col-sm-2 control-label m-t-9">{{$parent_symbol}}</label>
                                 <h6 style="padding-left:10px;">0.075% Fee will be charged.</h6>
                             </div>
                             <div class="row">
@@ -84,7 +84,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Sell LTC
+                    <div class="panel-heading">Sell {{$child_symbol}}
                         <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
                                <em class="fa fa-minus"></em>
                                </a>
@@ -99,35 +99,35 @@
                                 <div class="input-group col-sm-5 m-b">
                                     <input type="text" placeholder="0.00000000" id="sellunits" oninput="calculateSell()" class="form-control text-right limfield" name="units" required>
                                 </div>
-                                <label class="col-sm-2 control-label m-t-9">LTC</label>
+                                <label class="col-sm-2 control-label m-t-9">{{$child_symbol}}</label>
                             </div>
                             <div class="row">
                                 <label class="col-sm-3 control-label m-t-9">Ask Price</label>
                                 <div class="input-group col-sm-5 m-b">
-                                    <input type="text" class="form-control text-right limfield" id="sellprice" oninput="calculateSell()" placeholder="BTC Per Unit" name="price_per_unit" required>
+                                    <input type="text" class="form-control text-right limfield" id="sellprice" oninput="calculateSell()" placeholder="{{$parent_symbol}} Per Unit" name="price_per_unit" required>
                                 </div>
-                                <label class="col-sm-2 control-label m-t-9">BTC</label>
+                                <label class="col-sm-2 control-label m-t-9">{{$parent_symbol}}</label>
                             </div>
                             <div class="row">
                                 <label class="col-sm-3 control-label m-t-9">Sum</label>
                                 <div class="input-group col-sm-5 m-b">
                                     <input type="text" placeholder="0.00000000" id="sellsum" class="form-control text-right" disabled>
                                 </div>
-                                <label class="col-sm-2 control-label m-t-9">BTC</label>
+                                <label class="col-sm-2 control-label m-t-9">{{$parent_symbol}}</label>
                             </div>
                             <div class="row">
                                 <label class="col-sm-3 control-label m-t-9">Fee</label>
                                 <div class="input-group col-sm-5 m-b">
                                     <input type="text" placeholder="0.00000000" id="sellfee" class="form-control text-right" disabled>
                                 </div>
-                                <label class="col-sm-2 control-label m-t-9">LTC</label>
+                                <label class="col-sm-2 control-label m-t-9">{{$parent_symbol}}</label>
                             </div>
                             <div class="row">
                                 <label class="col-sm-3 control-label m-t-9">Total</label>
                                 <div class="input-group col-sm-5 m-b">
                                     <input type="text" placeholder="0.00000000" id="selltotal" class="form-control text-right" disabled>
                                 </div>
-                                <label class="col-sm-2 control-label m-t-9">LTC</label>
+                                <label class="col-sm-2 control-label m-t-9">{{$parent_symbol}}</label>
                                 <h6 style="padding-left:10px;">0.075% Fee will be charged.</h6>
                             </div>
                             <div class="row">
@@ -144,7 +144,6 @@
 </section>
 <div id="selectCurrency" class="modal fade" role="dialog">
   <div class="modal-dialog">
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -161,6 +160,7 @@
 
         <div class="tab-content">
           <div id="btc" class="tab-pane fade in active">
+            <h3>Base Currency: BTC</h3>
             <table class="table table-striped table-hover table-condensed">
                <thead>
                   <tr>
@@ -176,7 +176,82 @@
                 @foreach ($pairs as $ps)
                     @if ($ps->parent_symbol=="BTC")
                         <tr>
-                         <td class="number cursor-pointer"><a href='' >{{$ps->child_symbol}}</td>
+                         <td class="number cursor-pointer"><a href='{{ route('market/$ps->pair_id') }}' >{{$ps->child_symbol}}</a></td>
+                         <td class="number cursor-pointer">{{$ps->child_name}}</td>
+                        </tr>
+                    @endif
+                @endforeach
+               </tbody>
+            </table>
+          </div>
+          <div id="ltc" class="tab-pane fade">
+            <h3>Base Currency: LTC</h3>
+            <table class="table table-striped table-hover table-condensed">
+               <thead>
+                  <tr>
+                     <th>
+                        Symbol
+                     </th>
+                     <th>
+                        Name
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                @foreach ($pairs as $ps)
+                    @if ($ps->parent_symbol=="LTC")
+                        <tr>
+                         <td class="number cursor-pointer"><a href='{{ route('market/$ps->pair_id') }}' >{{$ps->child_symbol}}</a></td>
+                         <td class="number cursor-pointer">{{$ps->child_name}}</td>
+                        </tr>
+                    @endif
+                @endforeach
+               </tbody>
+            </table>
+          </div>
+          <div id="eth" class="tab-pane fade">
+            <h3>Base Currency: ETH</h3>
+            <table class="table table-striped table-hover table-condensed">
+               <thead>
+                  <tr>
+                     <th>
+                        Symbol
+                     </th>
+                     <th>
+                        Name
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                @foreach ($pairs as $ps)
+                    @if ($ps->parent_symbol=="ETH")
+                        <tr>
+                         <td class="number cursor-pointer"><a href='{{ route('market/$ps->pair_id') }}' >{{$ps->child_symbol}}</a></td>
+                         <td class="number cursor-pointer">{{$ps->child_name}}</td>
+                        </tr>
+                    @endif
+                @endforeach
+               </tbody>
+            </table>
+          </div>
+          <div id="usdt" class="tab-pane fade">
+            <h3>Base Currency: USDT</h3>
+            <table class="table table-striped table-hover table-condensed">
+               <thead>
+                  <tr>
+                     <th>
+                        Symbol
+                     </th>
+                     <th>
+                        Name
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                @foreach ($pairs as $ps)
+                    @if ($ps->parent_symbol=="USDT")
+                        <tr>
+                         <td class="number cursor-pointer"><a href='{{ route('market/$ps->pair_id') }}' >{{$ps->child_symbol}}</a></td>
                          <td class="number cursor-pointer">{{$ps->child_name}}</td>
                         </tr>
                     @endif
