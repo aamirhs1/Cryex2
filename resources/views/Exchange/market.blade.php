@@ -139,6 +139,184 @@
             </div>
         </div>
         <!-- Orders Book -->
+         <div class="row">
+                      <div class="col-md-12">
+                         <div class="panel panel-default">
+                            <div class="panel-heading">Orders Book
+                               <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+                               <em class="fa fa-minus"></em>
+                               </a>
+                            </div>
+                            <div class="panel-heading border-none">
+                            </div>
+                            <div class="panel-body">
+                               <div class="row">
+                                  <div class="col-md-6 col-sm-12">
+                                    <h3>Buy Orders</h3>
+                                     <div class="table-responsive m-t-10">
+                                        <table class="table table-striped table-hover table-condensed">
+                                           <thead>
+                                              <tr>
+                                                <th>
+                                                   Units (LTC)
+                                                </th>
+                                                <th>
+                                                   Bid per Unit
+                                                </th>
+                                                <th>
+                                                   Remaining Units
+                                                </th>
+                                              </tr>
+                                           </thead>
+                                           <tbody>
+                                             @foreach ($buy as $s)
+                                               <tr>
+                                                  <td class="number cursor-pointer">{{number_format($s->units, 8)}}</td>
+                                                  <td class="number cursor-pointer">{{number_format($s->price_per_unit, 9)}}</td>
+                                                  <td class="number">{{number_format($s->remaining, 8)}}</td>
+                                               </tr>
+                                             @endforeach
+
+                                           </tbody>
+
+                                        </table>
+                                     </div>
+                                  </div>
+                                  <div class="col-md-6 col-sm-12">
+                                    <h3>Sell Orders</h3>
+                                     <div class="table-responsive">
+                                        <table class="table table-striped table-hover table-condensed">
+                                           <thead>
+                                              <tr>
+                                                 <th>
+                                                    Units (LTC)
+                                                 </th>
+                                                 <th>
+                                                    Ask per Unit
+                                                 </th>
+                                                 <th>
+                                                    Remaining Units
+                                                 </th>
+                                              </tr>
+                                           </thead>
+                                           <tbody>
+                                             @foreach ($sell as $s)
+                                               <tr>
+                                                  <td class="number cursor-pointer">{{number_format($s->units, 8)}}</td>
+                                                  <td class="number cursor-pointer">{{number_format($s->price_per_unit, 8)}}</td>
+                                                  <td class="number">{{number_format($s->remaining, 8)}}</td>
+                                               </tr>
+                                             @endforeach
+
+
+
+
+
+
+
+                                           </tbody>
+                                        </table>
+                                     </div>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                      <!-- Open Orders -->
+                      <div class="col-md-12">
+                         <div class="panel panel-default">
+                            <div class="panel-heading">Open Orders
+                               <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                               <em class="fa fa-minus"></em>
+                               </a>
+                            </div>
+                            <div class="table-responsive">
+                               <table class="table table-bordered table-hover">
+                                  <thead>
+                                     <tr>
+                                        <th><i class="fa fa-plus"></i></th>
+                                        <th>Order Date</th>
+                                        <th>Units</th>
+                                        <th>Bid/Ask</th>
+                                        <th>Remaining</th>
+                                        <th>Status</th>
+                                        <th>Order Type</th>
+
+                                     </tr>
+                                  </thead>
+                                  <tbody>
+                                    @foreach ($openo as $o)
+                                      <tr>
+                                         <td><i class="fa fa-minus"></i></td>
+                                         <td>
+                                            {{$o->created_at}}
+                                         </td>
+                                         <td>{{number_format($o->units, 8)}}</td>
+                                         <td>{{number_format($o->price_per_unit, 8)}}</td>
+                                         <td>{{number_format($o->remaining, 8)}}</td>
+                                         <td>{{$o->status}}</td>
+                                         <td>{{$o->type}}</td>
+
+
+                                      </tr>
+
+                                    @endforeach                                   
+
+
+
+                                  </tbody>
+                               </table>
+                            </div>
+                         </div>
+                      </div>
+                      <!-- My Order History -->
+                      <div class="col-md-12">
+                      <div class="panel panel-default">
+                         <div class="panel-heading">My Order History
+                            <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                            <em class="fa fa-minus"></em>
+                            </a>
+                         </div>
+                         <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                               <thead>
+                                  <tr>
+                                    <th>Order Date</th>
+                                    <th>Units</th>
+                                    <th>Bid/Ask</th>
+                                    <th>Remaining</th>
+                                    <th>Status</th>
+                                    <th>Order Type</th>
+                                  </tr>
+                               </thead>
+                               <tbody>
+
+
+                               @foreach ($closeo as $o)
+                                 <tr>
+
+                                    <td>
+                                       {{$o->created_at}}
+                                    </td>
+                                    <td>{{number_format($o->units, 8)}}</td>
+                                    <td>{{number_format($o->price_per_unit, 8)}}</td>
+                                    <td>{{number_format($o->remaining, 8)}}</td>
+                                    <td>{{$o->status}}</td>
+                                    <td>{{$o->type}}</td>
+
+                                 </tr>
+
+                               @endforeach
+
+                           
+
+
+                               </tbody>
+                            </table>
+                         </div>
+                      </div>
+                   </div>
+                   </div>
         
     </section>
 </section>
@@ -176,7 +354,7 @@
                 @foreach ($pairs as $ps)
                     @if ($ps->parent_symbol=="BTC")
                         <tr>
-                         <td class="number cursor-pointer"><a href='{{ route('market/$ps->pair_id') }}' >{{$ps->child_symbol}}</a></td>
+                         <td class="number cursor-pointer"><a href='{{ route('market',$ps->pair_id) }}' >{{$ps->child_symbol}}</a></td>
                          <td class="number cursor-pointer">{{$ps->child_name}}</td>
                         </tr>
                     @endif
@@ -201,7 +379,7 @@
                 @foreach ($pairs as $ps)
                     @if ($ps->parent_symbol=="LTC")
                         <tr>
-                         <td class="number cursor-pointer"><a href='{{ route('market/$ps->pair_id') }}' >{{$ps->child_symbol}}</a></td>
+                         <td class="number cursor-pointer"><a href='{{ route('market',$ps->pair_id) }}' >{{$ps->child_symbol}}</a></td>
                          <td class="number cursor-pointer">{{$ps->child_name}}</td>
                         </tr>
                     @endif
@@ -226,7 +404,7 @@
                 @foreach ($pairs as $ps)
                     @if ($ps->parent_symbol=="ETH")
                         <tr>
-                         <td class="number cursor-pointer"><a href='{{ route('market/$ps->pair_id') }}' >{{$ps->child_symbol}}</a></td>
+                         <td class="number cursor-pointer"><a href='{{ route('market',$ps->pair_id) }}' >{{$ps->child_symbol}}</a></td>
                          <td class="number cursor-pointer">{{$ps->child_name}}</td>
                         </tr>
                     @endif
@@ -251,7 +429,7 @@
                 @foreach ($pairs as $ps)
                     @if ($ps->parent_symbol=="USDT")
                         <tr>
-                         <td class="number cursor-pointer"><a href='{{ route('market/$ps->pair_id') }}' >{{$ps->child_symbol}}</a></td>
+                         <td class="number cursor-pointer"><a href='{{ route('market',$ps->pair_id) }}' >{{$ps->child_symbol}}</a></td>
                          <td class="number cursor-pointer">{{$ps->child_name}}</td>
                         </tr>
                     @endif

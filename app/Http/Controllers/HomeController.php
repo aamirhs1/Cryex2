@@ -62,8 +62,15 @@ class HomeController extends Controller
             ->get()->first()->child_symbol;
         //dd($child_symbol);
         //dd($pairs);
+        $sell = Order::where([['status','!=','Completed'],['type','=','SellOrder']])->get(); 
+        $buy = Order::where([['status','!=','Completed'],['type','=','BuyOrder']])->get(); 
+        $user = auth()->user()->id;
+        $openo = Order::where([['status','!=','Completed'],['user_id','=',$user]])->get();        
 
-        return view('Exchange.market',compact('pairs','pair','parent_symbol', 'child_symbol'));
+        $closeo = Order::where([['status','=','Completed'],['user_id','=',$user]])->get();
+        
+
+        return view('Exchange.market',compact('pairs','pair','parent_symbol', 'child_symbol','sell','buy','openo','closeo'));
     }
 
 

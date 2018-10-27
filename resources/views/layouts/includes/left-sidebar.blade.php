@@ -55,7 +55,7 @@
                        </a>
                    </li>
                    <li class="menu no-arrow">
-                       <a href="{{route('market/1')}}">
+                       <a href="{{route('market',1)}}">
                            <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
                            <span class="nav-text">Market</span>
                        </a>
